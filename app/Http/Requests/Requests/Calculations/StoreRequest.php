@@ -10,10 +10,10 @@ class StoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'calculation' => array(
+            'calculation' => [
                 'required',
                 'regex:/^\s*\d+(\.\d+)?\s*[\+\-\*\/]\s*\d+(\.\d+)?\s*$/'
-            )
+            ]
         ];
     }
 }
