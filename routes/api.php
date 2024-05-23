@@ -14,6 +14,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+Route::name('api.')->group(function () {
+    Route::post('/calculations', App\Http\Controllers\Calculation\StoreController::class)->name('calculations.store');
+    Route::get('/calculations', App\Http\Controllers\Calculation\IndexController::class)->name('calculations.get');
+    Route::delete('/calculations/{calculation}', App\Http\Controllers\Calculation\DestroyController::class)->name('calculations.destroy');
+    Route::delete('/calculations', App\Http\Controllers\Calculation\DestroyAllController::class)->name('calculations.destroy-all');
 });
