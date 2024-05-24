@@ -1,24 +1,19 @@
 <template>
     <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-8">
-                <div class="card">
-                    <div class="card-header">Example Component</div>
-
-                    <div class="card-body">
-                        I'm an example component.
-                    </div>
-                    <h1 class="text-3xl font-bold underline">
-                        Hello World!
-                    </h1>
-                </div>
-            </div>
+        <h1 class="text-3xl font-bold underline">
+            Welcome To Calctek Calculator!
+        </h1>
+        <div>
+            <CalculationInput></CalculationInput>
         </div>
     </div>
 </template>
 
 <script>
+    import CalculationInput from "./CalculationInput.vue";
+
     export default {
+        components: {CalculationInput},
         mounted() {
             console.log('Component mounted.')
         }
