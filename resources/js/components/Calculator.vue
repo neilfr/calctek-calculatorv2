@@ -85,12 +85,12 @@ export default {
             try {
                 console.log('getting existing calculations')
                 const response = await axios.get('api/calculations');
-                this.calculations = response.data.data
                 this.calculations = response.data.data.map(calculation => ({
                     id:calculation.id,
                     calculation: calculation.calculation,
                     result: calculation.result
                 }));
+                this.calculations.sort((a, b) => b.id - a.id);
                 console.log('calculations:', this.calculations)
             } catch (error) {
                 console.error(error);
