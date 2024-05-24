@@ -1,5 +1,5 @@
 <template>
-    <button class="border rounded" @click="emitValue">{{this.value}}</button>
+    <button class="border rounded bg-gray-300" @click="emitValue">{{this.value}}</button>
 </template>
 
 <script>

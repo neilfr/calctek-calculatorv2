@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="grid grid-cols-4 gap-2 max-w-80">
-            <input class="col-span-4 overflow-x-auto!important border" type="text" v-model="equation" ref="readout">
+            <input class="col-span-4 overflow-x-auto!important border bg-white" type="text" v-model="equation" ref="readout">
             <button class="border bg-red-300 rounded" @click="clear">AC</button>
             <button class="border bg-red-600 rounded" @click="deleteAllCalculations">DA</button>
             <div></div>
@@ -20,7 +20,7 @@
             <calculator-button value="-" @calculator-button-press="append"></calculator-button>
             <calculator-button value="0" @calculator-button-press="append"></calculator-button>
             <calculator-button value="." @calculator-button-press="append"></calculator-button>
-            <button class="border rounded" @click="submitEquation">=</button>
+            <button class="border rounded bg-orange-200" @click="submitEquation">=</button>
             <calculator-button value="+" @calculator-button-press="append"></calculator-button>
         </div>
 
@@ -30,7 +30,7 @@
                 v-for="(calculation, index) in calculations"
                 :key="index"
                 :calculation="calculation"
-                @calculation-deleted="refreshCalculations"
+                @calculation-deleted="fetchCalculations"
             ></Calculation>
         </ul>
     </div>
@@ -86,19 +86,11 @@ export default {
                 console.log('getting existing calculations')
                 const response = await axios.get('api/calculations');
                 this.calculations = response.data.data
-                this.calculations = response.data.data.map(calculation => ({
-                    id:calculation.id,
-                    calculation: calculation.calculation,
-                    result: calculation.result
-                }));
                 console.log('calculations:', this.calculations)
             } catch (error) {
                 console.error(error);
                 alert('An error occurred while fetching calculations.');
             }
-        },
-        refreshCalculations() {
-            this.fetchCalculations()
         },
         async deleteAllCalculations() {
             try {
