@@ -57,6 +57,7 @@ class CalculatorServiceTest extends TestCase
             'subtraction' => ['5-2', '3'],
             'multiplication' => ['8*4', '32'],
             'division' => ['8/2', '4'],
+            'power' => ['2^3','8'],
             'spaces' => ['   5   + 7  ', '12'],
             'decimals' => ['5.2 + 8.44', '13.64']
         ];

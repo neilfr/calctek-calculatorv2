@@ -10,6 +10,7 @@ class CalculatorService implements CalculatorServiceContract
     const SUBTRACT = '-';
     const MULTIPLY = '*';
     const DIVIDE = '/';
+    const POWER = '^';
 
     public function clean(string $calculation):string
     {
@@ -31,6 +32,8 @@ class CalculatorService implements CalculatorServiceContract
                 return strval($operand1 * $operand2);
             case self::DIVIDE:
                 return strval($operand1 / $operand2);
+            case self::POWER:
+                return strval($operand1 ** $operand2);
             default:
                 throw new InvalidArgumentException("Invalid operator");
         }
@@ -38,7 +41,7 @@ class CalculatorService implements CalculatorServiceContract
 
     private function getOperator(string $calculation):string
     {
-        $operators = [self::ADD,self::SUBTRACT, self::MULTIPLY, self::DIVIDE];
+        $operators = [self::ADD,self::SUBTRACT, self::MULTIPLY, self::DIVIDE, self::POWER];
         foreach ($operators as $op) {
             if (strpos($calculation, $op) !== false) {
                 return $op;

@@ -12,7 +12,7 @@ class StoreRequest extends FormRequest
         return [
             'calculation' => [
                 'required',
-                'regex:/^\s*\d+(\.\d+)?\s*[\+\-\*\/]\s*\d+(\.\d+)?\s*$/'
+                'regex:/^\s*\d+(\.\d+)?\s*[\^\+\-\*\/]\s*\d+(\.\d+)?\s*$/'
             ]
         ];
     }
