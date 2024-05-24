@@ -6,6 +6,11 @@ use InvalidArgumentException;
 
 class CalculatorService implements CalculatorServiceContract
 {
+    const ADD = '+';
+    const SUBTRACT = '-';
+    const MULTIPLY = '*';
+    const DIVIDE = '/';
+
     public function clean(string $calculation):string
     {
         return str_replace(" ","",$calculation);
@@ -18,13 +23,13 @@ class CalculatorService implements CalculatorServiceContract
 
         list($operand1, $operand2) = explode($operator, $cleanCalculation);
         switch ($operator) {
-            case '+':
+            case self::ADD:
                 return strval($operand1 + $operand2);
-            case '-':
+            case self::SUBTRACT:
                 return strval($operand1 - $operand2);
-            case '*':
+            case self::MULTIPLY:
                 return strval($operand1 * $operand2);
-            case '/':
+            case self::DIVIDE:
                 return strval($operand1 / $operand2);
             default:
                 throw new InvalidArgumentException("Invalid operator");
@@ -33,7 +38,7 @@ class CalculatorService implements CalculatorServiceContract
 
     private function getOperator(string $calculation):string
     {
-        $operators = ['+', '-', '*', '/'];
+        $operators = [self::ADD,self::SUBTRACT, self::MULTIPLY, self::DIVIDE];
         foreach ($operators as $op) {
             if (strpos($calculation, $op) !== false) {
                 return $op;
