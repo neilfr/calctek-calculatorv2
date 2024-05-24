@@ -30,7 +30,7 @@
                 v-for="(calculation, index) in calculations"
                 :key="index"
                 :calculation="calculation"
-                @calculation-deleted="fetchCalculations"
+                @calculation-deleted="refreshCalculations"
             ></Calculation>
         </ul>
     </div>
@@ -86,11 +86,19 @@ export default {
                 console.log('getting existing calculations')
                 const response = await axios.get('api/calculations');
                 this.calculations = response.data.data
+                this.calculations = response.data.data.map(calculation => ({
+                    id:calculation.id,
+                    calculation: calculation.calculation,
+                    result: calculation.result
+                }));
                 console.log('calculations:', this.calculations)
             } catch (error) {
                 console.error(error);
                 alert('An error occurred while fetching calculations.');
             }
+        },
+        refreshCalculations() {
+            this.fetchCalculations()
         },
         async deleteAllCalculations() {
             try {
