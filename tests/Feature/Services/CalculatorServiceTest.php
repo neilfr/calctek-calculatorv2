@@ -9,13 +9,19 @@ use Tests\TestCase;
 class CalculatorServiceTest extends TestCase
 {
 
+    protected $calculatorService;
+    public function setUp(): void
+    {
+        parent::setUp();
+        $this->calculatorService = new CalculatorService();
+    }
+
     /**
      * @dataProvider dirtyCalculations
      */
     public function test_it_cleans_calculations($calculation, $cleanCalculation)
     {
-        $calculatorService = new CalculatorService();
-        $this->assertEquals($cleanCalculation, $calculatorService->clean($calculation));
+        $this->assertEquals($cleanCalculation, $this->calculatorService->clean($calculation));
     }
 
     /**
@@ -23,17 +29,15 @@ class CalculatorServiceTest extends TestCase
      */
     public function test_it_should_calculate_results($calculation, $result)
     {
-        $calculatorService = new CalculatorService();
-        $cleanCalculation = $calculatorService->clean($calculation);
-        $calculatedResult = $calculatorService->calculate($cleanCalculation);
+        $cleanCalculation = $this->calculatorService->clean($calculation);
+        $calculatedResult = $this->calculatorService->calculate($cleanCalculation);
         $this->assertEquals($result, $calculatedResult);
     }
 
     public function test_it_throws_exception_when_valid_operator_is_not_found()
     {
-        $calculatorService = new CalculatorService();
         $this->expectException(InvalidArgumentException::class);
-        $calculatorService->calculate('5@2');
+        $this->calculatorService->calculate('5@2');
     }
 
     public function dirtyCalculations():array
