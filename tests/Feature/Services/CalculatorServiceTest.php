@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Services;
 
+use App\Exceptions\DivisionByZeroException;
 use App\Services\CalculatorService;
 use InvalidArgumentException;
 use Tests\TestCase;
@@ -38,6 +39,12 @@ class CalculatorServiceTest extends TestCase
     {
         $this->expectException(InvalidArgumentException::class);
         $this->calculatorService->calculate('5@2');
+    }
+
+    public function test_it_should_throw_division_by_zero_exception_on_division_by_zero():void
+    {
+        $this->expectException(DivisionByZeroException::class);
+        $this->calculatorService->calculate('5/0');
     }
 
     public function dirtyCalculations():array

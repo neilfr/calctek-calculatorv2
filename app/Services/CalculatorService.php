@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Exceptions\DivisionByZeroException;
 use InvalidArgumentException;
 
 class CalculatorService implements CalculatorServiceContract
@@ -31,6 +32,7 @@ class CalculatorService implements CalculatorServiceContract
             case self::MULTIPLY:
                 return strval($operand1 * $operand2);
             case self::DIVIDE:
+                if ($operand2 == 0) throw new DivisionByZeroException("Division by zero");
                 return strval($operand1 / $operand2);
             case self::POWER:
                 return strval($operand1 ** $operand2);
