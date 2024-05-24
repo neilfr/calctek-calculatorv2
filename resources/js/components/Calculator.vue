@@ -1,26 +1,29 @@
 <template>
     <div>
-        <div>
-            <calculator-button value="1" @calculator-button-press="append"></calculator-button>
-            <calculator-button value="2" @calculator-button-press="append"></calculator-button>
-            <calculator-button value="3" @calculator-button-press="append"></calculator-button>
-            <calculator-button value="4" @calculator-button-press="append"></calculator-button>
-            <calculator-button value="5" @calculator-button-press="append"></calculator-button>
-            <calculator-button value="6" @calculator-button-press="append"></calculator-button>
+        <div class="grid grid-cols-4 gap-2 max-w-80">
+            <input class="col-span-4 overflow-x-auto!important border" type="text" v-model="equation" ref="readout">
+            <button class="border bg-red-300 rounded" @click="clear">AC</button>
+            <button class="border bg-red-600 rounded" @click="deleteAllCalculations">DA</button>
+            <div></div>
+            <calculator-button value="^" @calculator-button-press="append"></calculator-button>
             <calculator-button value="7" @calculator-button-press="append"></calculator-button>
             <calculator-button value="8" @calculator-button-press="append"></calculator-button>
             <calculator-button value="9" @calculator-button-press="append"></calculator-button>
+            <calculator-button value='/' @calculator-button-press="append"></calculator-button>
+            <calculator-button value="4" @calculator-button-press="append"></calculator-button>
+            <calculator-button value="5" @calculator-button-press="append"></calculator-button>
+            <calculator-button value="6" @calculator-button-press="append"></calculator-button>
+            <calculator-button value="*" @calculator-button-press="append"></calculator-button>
+            <calculator-button value="1" @calculator-button-press="append"></calculator-button>
+            <calculator-button value="2" @calculator-button-press="append"></calculator-button>
+            <calculator-button value="3" @calculator-button-press="append"></calculator-button>
+            <calculator-button value="-" @calculator-button-press="append"></calculator-button>
             <calculator-button value="0" @calculator-button-press="append"></calculator-button>
             <calculator-button value="." @calculator-button-press="append"></calculator-button>
+            <button class="border rounded" @click="submitEquation">=</button>
             <calculator-button value="+" @calculator-button-press="append"></calculator-button>
-            <calculator-button value="-" @calculator-button-press="append"></calculator-button>
-            <calculator-button value='/' @calculator-button-press="append"></calculator-button>
-            <calculator-button value="x" @calculator-button-press="append"></calculator-button>
-            <calculator-button value="^" @calculator-button-press="append"></calculator-button>
         </div>
 
-        <input type="text" v-model="equation" placeholder="Enter your equation here" readonly>
-        <button @click="submitEquation">=</button>
 
         <ul>
             <Calculation
@@ -30,7 +33,6 @@
                 @calculation-deleted="refreshCalculations"
             ></Calculation>
         </ul>
-        <button @click="deleteAllCalculations">Delete All</button>
     </div>
 </template>
 
@@ -43,26 +45,34 @@ export default {
     components: {CalculatorButton, Calculation},
     data() {
         return {
+            readout: null,
             equation: '',
             calculations: []
         };
     },
     mounted() {
+        this.readout = this.$refs.readout
         console.log('I am mounted!')
         this.fetchCalculations();
     },
     methods: {
         async append($value){
             this.equation = this.equation + $value
+            this.scrollInput()
         },
-        async one(){
-            this.equation = this.equation + '1'
+        scrollInput() {
+            this.$nextTick(() => {
+                if (this.readout) {
+                    this.readout.scrollLeft = this.readout.scrollWidth
+                }
+            });
         },
-        async two(){
-            this.equation = this.equation + '2'
+        clear(){
+            this.equation = ''
         },
         async submitEquation() {
             try {
+                console.log('submitting:',this.equation)
                 await axios.post('/api/calculations', { calculation: this.equation });
                 this.fetchCalculations()
                 this.equation=""
