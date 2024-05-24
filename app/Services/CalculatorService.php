@@ -2,7 +2,9 @@
 
 namespace App\Services;
 
-class CalculatorService
+use InvalidArgumentException;
+
+class CalculatorService implements CalculatorServiceContract
 {
     public function clean(string $calculation):string
     {
@@ -25,11 +27,11 @@ class CalculatorService
             case '/':
                 return strval($operand1 / $operand2);
             default:
-                return 'error';
+                throw new InvalidArgumentException("Invalid operator");
         }
     }
 
-    public function getOperator(string $calculation):string
+    private function getOperator(string $calculation):string
     {
         $operators = ['+', '-', '*', '/'];
         foreach ($operators as $op) {
@@ -37,6 +39,6 @@ class CalculatorService
                 return $op;
             }
         }
-        return '';
+        throw new InvalidArgumentException("Invalid operator");
     }
 }

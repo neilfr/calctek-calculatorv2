@@ -3,6 +3,7 @@
 namespace Tests\Feature\Services;
 
 use App\Services\CalculatorService;
+use InvalidArgumentException;
 use Tests\TestCase;
 
 class CalculatorServiceTest extends TestCase
@@ -26,6 +27,13 @@ class CalculatorServiceTest extends TestCase
         $cleanCalculation = $calculatorService->clean($calculation);
         $calculatedResult = $calculatorService->calculate($cleanCalculation);
         $this->assertEquals($result, $calculatedResult);
+    }
+
+    public function test_it_throws_exception_when_valid_operator_is_not_found()
+    {
+        $calculatorService = new CalculatorService();
+        $this->expectException(InvalidArgumentException::class);
+        $calculatorService->calculate('5@2');
     }
 
     public function dirtyCalculations():array
