@@ -1,6 +1,6 @@
 <template>
     <li>
-        <button @click="deleteCalculation(calculation.id)">Delete</button>
+        <button @click="deleteCalculation(calculation.id)"><i class="fas fa-trash-can"></i></button>
         {{ calculation.calculation }}={{calculation.result}}
     </li>
 </template>
