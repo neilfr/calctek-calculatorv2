@@ -65,6 +65,7 @@ class StoreControllerTest extends TestCase
             'letters' => ['foobar'],
             'only the first operand' => ['8+'],
             'only the second operand' => ['+9'],
+            'division by zero' => ['2/0']
         ];
     }
 
