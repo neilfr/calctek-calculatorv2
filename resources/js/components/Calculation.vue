@@ -1,0 +1,26 @@
+<template>
+    <li>
+        <button @click="deleteCalculation(calculation.id)">Delete</button>
+        {{ calculation.calculation }}={{calculation.result}}
+    </li>
+</template>
+
+<script>
+import axios from 'axios';
+export default {
+    props: {
+        calculation: []
+    },
+    methods: {
+        async deleteCalculation(id) {
+            try {
+                await axios.delete(`api/calculations/${id}`);
+                console.log('Item deleted successfully');
+                this.$emit('calculationDeleted', this.calculation.id)
+            } catch (error) {
+                console.error('Error deleting item:', error);
+            }
+        }
+    }
+};
+</script>

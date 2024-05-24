@@ -4,16 +4,16 @@
             Welcome To Calctek Calculator!
         </h1>
         <div>
-            <CalculationInput></CalculationInput>
+            <Calculator></Calculator>
         </div>
     </div>
 </template>
 
 <script>
-    import CalculationInput from "./CalculationInput.vue";
+    import Calculator from "./Calculator.vue";
 
     export default {
-        components: {CalculationInput},
+        components: {Calculator},
         mounted() {
             console.log('Component mounted.')
         }
