@@ -14,11 +14,12 @@
             <calculator-button value="." @calculator-button-press="append"></calculator-button>
             <calculator-button value="+" @calculator-button-press="append"></calculator-button>
             <calculator-button value="-" @calculator-button-press="append"></calculator-button>
-            <calculator-button value="/" @calculator-button-press="append"></calculator-button>
+            <calculator-button value='/' @calculator-button-press="append"></calculator-button>
             <calculator-button value="x" @calculator-button-press="append"></calculator-button>
+            <calculator-button value="^" @calculator-button-press="append"></calculator-button>
         </div>
 
-        <input type="text" v-model="equation" placeholder="Enter your equation here">
+        <input type="text" v-model="equation" placeholder="Enter your equation here" readonly>
         <button @click="submitEquation">=</button>
 
         <ul>
