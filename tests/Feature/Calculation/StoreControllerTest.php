@@ -35,7 +35,7 @@ class StoreControllerTest extends TestCase
     /**
      * @dataProvider invalidCalculations
      */
-    public function test_it_returns_422_for_no_calculation($calculation): void
+    public function test_it_returns_422_for_invalid_calculation($calculation): void
     {
         $payload = [
             'calculation' => $calculation,
@@ -56,6 +56,7 @@ class StoreControllerTest extends TestCase
             'decimals' => ['5.2 + 8.44', '13.64']
         ];
     }
+
     public function invalidCalculations():array
     {
         return [
