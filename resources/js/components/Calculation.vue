@@ -16,7 +16,7 @@ export default {
             try {
                 await axios.delete(`api/calculations/${id}`);
                 console.log('Item deleted successfully');
-                this.$emit('calculationDeleted', this.calculation.id)
+                this.$emit('calculation-deleted')
             } catch (error) {
                 console.error('Error deleting item:', error);
             }

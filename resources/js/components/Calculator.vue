@@ -1,15 +1,32 @@
 <template>
     <div>
+        <div>
+            <calculator-button value="1" @calculator-button-press="append"></calculator-button>
+            <calculator-button value="2" @calculator-button-press="append"></calculator-button>
+            <calculator-button value="3" @calculator-button-press="append"></calculator-button>
+            <calculator-button value="4" @calculator-button-press="append"></calculator-button>
+            <calculator-button value="5" @calculator-button-press="append"></calculator-button>
+            <calculator-button value="6" @calculator-button-press="append"></calculator-button>
+            <calculator-button value="7" @calculator-button-press="append"></calculator-button>
+            <calculator-button value="8" @calculator-button-press="append"></calculator-button>
+            <calculator-button value="9" @calculator-button-press="append"></calculator-button>
+            <calculator-button value="0" @calculator-button-press="append"></calculator-button>
+            <calculator-button value="." @calculator-button-press="append"></calculator-button>
+            <calculator-button value="+" @calculator-button-press="append"></calculator-button>
+            <calculator-button value="-" @calculator-button-press="append"></calculator-button>
+            <calculator-button value="/" @calculator-button-press="append"></calculator-button>
+            <calculator-button value="x" @calculator-button-press="append"></calculator-button>
+        </div>
+
         <input type="text" v-model="equation" placeholder="Enter your equation here">
         <button @click="submitEquation">=</button>
 
-        <h2>Calculation</h2>
         <ul>
             <Calculation
                 v-for="(calculation, index) in calculations"
                 :key="index"
                 :calculation="calculation"
-                @calculationDeleted="refreshCalculations"
+                @calculation-deleted="refreshCalculations"
             ></Calculation>
         </ul>
         <button @click="deleteAllCalculations">Delete All</button>
@@ -20,8 +37,9 @@
 
 import axios from 'axios';
 import Calculation from "./Calculation.vue";
+import CalculatorButton from "./CalculatorButton.vue";
 export default {
-    components: {Calculation},
+    components: {CalculatorButton, Calculation},
     data() {
         return {
             equation: '',
@@ -30,15 +48,26 @@ export default {
     },
     mounted() {
         console.log('I am mounted!')
-       this.fetchCalculations();
+        this.fetchCalculations();
     },
     methods: {
+        async append($value){
+            this.equation = this.equation + $value
+        },
+        async one(){
+            this.equation = this.equation + '1'
+        },
+        async two(){
+            this.equation = this.equation + '2'
+        },
         async submitEquation() {
             try {
                 await axios.post('/api/calculations', { calculation: this.equation });
                 this.fetchCalculations()
+                this.equation=""
             } catch (error) {
                 console.error(error);
+                alert(`Equation ${this.equation} is invalid`);
             }
         },
         async fetchCalculations() {
