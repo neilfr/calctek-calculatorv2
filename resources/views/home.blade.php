@@ -23,7 +23,7 @@
     </head>
     <body class="antialiased">
         <div id="app">
-            <example-component></example-component>
+            <home></home>
             <!-- Your Vue components go here -->
         </div>
         <script src="{{ asset('js/app.js') }}"></script>
