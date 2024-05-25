@@ -9,11 +9,11 @@
             <calculator-button value="7" @calculator-button-press="append"></calculator-button>
             <calculator-button value="8" @calculator-button-press="append"></calculator-button>
             <calculator-button value="9" @calculator-button-press="append"></calculator-button>
-            <calculator-button value='/' @calculator-button-press="append"></calculator-button>
+            <calculator-button value='÷' @calculator-button-press="append"></calculator-button>
             <calculator-button value="4" @calculator-button-press="append"></calculator-button>
             <calculator-button value="5" @calculator-button-press="append"></calculator-button>
             <calculator-button value="6" @calculator-button-press="append"></calculator-button>
-            <calculator-button value="*" @calculator-button-press="append"></calculator-button>
+            <calculator-button value="x" @calculator-button-press="append"></calculator-button>
             <calculator-button value="1" @calculator-button-press="append"></calculator-button>
             <calculator-button value="2" @calculator-button-press="append"></calculator-button>
             <calculator-button value="3" @calculator-button-press="append"></calculator-button>
@@ -54,7 +54,6 @@ export default {
     },
     mounted() {
         this.readout = this.$refs.readout
-        console.log('I am mounted!')
         this.fetchCalculations();
     },
     methods: {
@@ -74,14 +73,19 @@ export default {
         },
         async submitEquation() {
             try {
-                console.log('submitting:',this.equation)
-                await axios.post('/api/calculations', { calculation: this.equation });
+                await axios.post('/api/calculations', { calculation: this.formatEquation() });
                 this.fetchCalculations()
-                this.equation=""
+                this.clear()
             } catch (error) {
                 console.error(error);
                 alert(`Equation ${this.equation} is invalid`);
+                this.clear()
             }
+        },
+        formatEquation(){
+            return this.equation
+                .replace(/x/g, '*')
+                .replace(/÷/g, '/')
         },
         async fetchCalculations() {
             try {

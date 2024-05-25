@@ -10,7 +10,6 @@ export default {
     },
     methods: {
         emitValue() {
-            console.log('calc button pressed', this.value)
             this.$emit('calculator-button-press', this.value)
         }
     }
