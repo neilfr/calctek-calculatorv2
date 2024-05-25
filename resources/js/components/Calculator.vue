@@ -1,7 +1,13 @@
 <template>
     <div>
         <div class="grid grid-cols-4 gap-2 max-w-80 mb-4">
-            <input class="col-span-4 overflow-x-auto!important border bg-white" type="text" v-model="equation" ref="readout">
+            <input
+                class="col-span-4 overflow-x-auto!important border bg-white"
+                type="text"
+                :value="equation"
+                ref="readout"
+                readonly
+            >
             <button class="border bg-red-300 rounded" @click="clear">AC</button>
             <div></div>
             <div></div>
@@ -20,27 +26,34 @@
             <calculator-button value="-" @calculator-button-press="append"></calculator-button>
             <calculator-button value="0" @calculator-button-press="append"></calculator-button>
             <calculator-button value="." @calculator-button-press="append"></calculator-button>
-            <button class="border rounded bg-orange-200" @click="submitEquation">=</button>
+            <button
+                class="border rounded bg-orange-200"
+                @click="submitEquation"
+            >
+                =
+            </button>
             <calculator-button value="+" @calculator-button-press="append"></calculator-button>
         </div>
-        <ticker :calculations="calculations" @delete-calculation="deleteCalculation" @delete-all-calculations="deleteAllCalculations"></ticker>
+        <ticker
+            :calculations="calculations"
+            @delete-calculation="deleteCalculation"
+            @delete-all-calculations="deleteAllCalculations"
+        ></ticker>
     </div>
 </template>
 
 <script>
 
 import axios from 'axios'
-import Calculation from "./Calculation.vue"
 import CalculatorButton from "./CalculatorButton.vue"
 import Ticker from "./Ticker.vue";
 export default {
-    components: {Ticker, CalculatorButton, Calculation},
+    components: {Ticker, CalculatorButton},
     data() {
         return {
             readout: null,
             equation: '',
             calculations: [],
-            arg: 'bar'
         };
     },
     mounted() {

@@ -1,7 +1,7 @@
 <template>
     <button
         class="border rounded bg-gray-300"
-        @click="emitValue"
+        @click="$emit('calculator-button-press', value)"
     >
         {{this.value}}
     </button>
@@ -12,11 +12,6 @@ export default {
     name: "CalculatorButton",
     props: {
         value: '',
-    },
-    methods: {
-        emitValue() {
-            this.$emit('calculator-button-press', this.value)
-        }
     }
 }
 </script>
