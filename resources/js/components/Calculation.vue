@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import axios from 'axios';
+import axios from 'axios'
 
 export default {
     props: {
@@ -14,7 +14,6 @@ export default {
     },
     computed: {
         formattedCalculation() {
-            console.log(this.calculation.calculation, this.calculation.calculation.replace(/\//g, '÷'))
             return this.calculation.calculation
                 .replace(/\//g, '÷')
                 .replace(/\*/g, 'x')
@@ -23,11 +22,10 @@ export default {
     methods: {
         async deleteCalculation(id) {
             try {
-                await axios.delete(`api/calculations/${id}`);
-                console.log('Item deleted successfully');
+                await axios.delete(`api/calculations/${id}`)
                 this.$emit('calculation-deleted')
             } catch (error) {
-                console.error('Error deleting item:', error);
+                console.error('Error deleting item:', error)
             }
         }
     }

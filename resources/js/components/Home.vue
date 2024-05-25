@@ -10,12 +10,9 @@
 </template>
 
 <script>
-    import Calculator from "./Calculator.vue";
+    import Calculator from "./Calculator.vue"
 
     export default {
         components: {Calculator},
-        mounted() {
-            console.log('Component mounted.')
-        }
     }
 </script>

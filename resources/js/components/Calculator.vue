@@ -40,9 +40,9 @@
 
 <script>
 
-import axios from 'axios';
-import Calculation from "./Calculation.vue";
-import CalculatorButton from "./CalculatorButton.vue";
+import axios from 'axios'
+import Calculation from "./Calculation.vue"
+import CalculatorButton from "./CalculatorButton.vue"
 export default {
     components: {CalculatorButton, Calculation},
     data() {
@@ -54,7 +54,7 @@ export default {
     },
     mounted() {
         this.readout = this.$refs.readout
-        this.fetchCalculations();
+        this.fetchCalculations()
     },
     methods: {
         async append($value){
@@ -73,12 +73,12 @@ export default {
         },
         async submitEquation() {
             try {
-                await axios.post('/api/calculations', { calculation: this.formatEquation() });
+                await axios.post('/api/calculations', { calculation: this.formatEquation() })
                 this.fetchCalculations()
                 this.clear()
             } catch (error) {
-                console.error(error);
-                alert(`Equation ${this.equation} is invalid`);
+                console.error(error)
+                alert(`Equation ${this.equation} is invalid`)
                 this.clear()
             }
         },
@@ -89,18 +89,16 @@ export default {
         },
         async fetchCalculations() {
             try {
-                console.log('getting existing calculations')
-                const response = await axios.get('api/calculations');
+                const response = await axios.get('api/calculations')
                 this.calculations = response.data.data.map(calculation => ({
                     id:calculation.id,
                     calculation: calculation.calculation,
                     result: calculation.result
-                }));
-                this.calculations.sort((a, b) => b.id - a.id);
-                console.log('calculations:', this.calculations)
+                }))
+                this.calculations.sort((a, b) => b.id - a.id)
             } catch (error) {
                 console.error(error);
-                alert('An error occurred while fetching calculations.');
+                alert('An error occurred while fetching calculations.')
             }
         },
         refreshCalculations() {
@@ -108,11 +106,10 @@ export default {
         },
         async deleteAllCalculations() {
             try {
-                await axios.delete(`api/calculations`);
-                console.log('Items deleted successfully');
-                this.fetchCalculations();
+                await axios.delete(`api/calculations`)
+                this.fetchCalculations()
             } catch (error) {
-                console.error('Error deleting item:', error);
+                console.error('Error deleting item:', error)
             }
         }
     },
