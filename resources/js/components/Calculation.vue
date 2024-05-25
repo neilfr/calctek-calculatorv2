@@ -1,5 +1,5 @@
 <template>
-    <li>
+    <li class="mb-2">
         <button @click="deleteCalculation(calculation.id)"><i class="fas fa-trash-can"></i></button>
         {{ calculation.calculation }}={{calculation.result}}
     </li>

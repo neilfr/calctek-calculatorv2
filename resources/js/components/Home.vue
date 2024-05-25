@@ -1,7 +1,7 @@
 <template>
-    <div class="container">
-        <h1 class="text-3xl font-bold underline">
-            Welcome To Calctek Calculator!
+    <div class="container p-6">
+        <h1 class="text-3xl font-bold underline mb-4">
+            CalcTek Calculator
         </h1>
         <div>
             <Calculator></Calculator>
