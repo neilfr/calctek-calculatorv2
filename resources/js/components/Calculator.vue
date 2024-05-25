@@ -3,7 +3,7 @@
         <div class="grid grid-cols-4 gap-2 max-w-80 mb-4">
             <input class="col-span-4 overflow-x-auto!important border bg-white" type="text" v-model="equation" ref="readout">
             <button class="border bg-red-300 rounded" @click="clear">AC</button>
-            <button class="border bg-red-600 rounded" @click="deleteAllCalculations"><i class="fas fa-trash-can"></i></button>
+            <div></div>
             <div></div>
             <calculator-button value="^" @calculator-button-press="append"></calculator-button>
             <calculator-button value="7" @calculator-button-press="append"></calculator-button>
@@ -24,14 +24,17 @@
             <calculator-button value="+" @calculator-button-press="append"></calculator-button>
         </div>
 
-        <ul>
-            <Calculation
-                v-for="(calculation, index) in calculations"
-                :key="index"
-                :calculation="calculation"
-                @calculation-deleted="refreshCalculations"
-            ></Calculation>
-        </ul>
+        <div>
+            <button class="border bg-red-300 rounded px-2 mb-2" @click="deleteAllCalculations">Clear Ticker</button>
+            <ul>
+                <Calculation
+                    v-for="(calculation, index) in calculations"
+                    :key="index"
+                    :calculation="calculation"
+                    @calculation-deleted="refreshCalculations"
+                ></Calculation>
+            </ul>
+        </div>
     </div>
 </template>
 
