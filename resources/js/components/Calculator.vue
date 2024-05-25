@@ -23,18 +23,7 @@
             <button class="border rounded bg-orange-200" @click="submitEquation">=</button>
             <calculator-button value="+" @calculator-button-press="append"></calculator-button>
         </div>
-
-        <div>
-            <button class="border bg-red-300 rounded px-2 mb-2" @click="deleteAllCalculations">Clear Ticker</button>
-            <ul>
-                <Calculation
-                    v-for="(calculation, index) in calculations"
-                    :key="index"
-                    :calculation="calculation"
-                    @calculation-deleted="refreshCalculations"
-                ></Calculation>
-            </ul>
-        </div>
+        <ticker :calculations="calculations" @delete-calculation="deleteCalculation" @delete-all-calculations="deleteAllCalculations"></ticker>
     </div>
 </template>
 
@@ -43,13 +32,15 @@
 import axios from 'axios'
 import Calculation from "./Calculation.vue"
 import CalculatorButton from "./CalculatorButton.vue"
+import Ticker from "./Ticker.vue";
 export default {
-    components: {CalculatorButton, Calculation},
+    components: {Ticker, CalculatorButton, Calculation},
     data() {
         return {
             readout: null,
             equation: '',
-            calculations: []
+            calculations: [],
+            arg: 'bar'
         };
     },
     mounted() {
@@ -108,6 +99,14 @@ export default {
             try {
                 await axios.delete(`api/calculations`)
                 this.fetchCalculations()
+            } catch (error) {
+                console.error('Error deleting item:', error)
+            }
+        },
+        async deleteCalculation(id) {
+            try {
+                await axios.delete(`api/calculations/${id}`)
+                await this.fetchCalculations()
             } catch (error) {
                 console.error('Error deleting item:', error)
             }

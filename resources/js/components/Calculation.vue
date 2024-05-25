@@ -1,13 +1,15 @@
 <template>
     <li class="mb-2">
-        <button @click="deleteCalculation(calculation.id)"><i class="fas fa-trash-can"></i></button>
+        <button
+            @click="$emit('delete-calculation', calculation.id)"
+        >
+            <i class="fas fa-trash-can"></i>
+        </button>
         {{ formattedCalculation }}={{calculation.result}}
     </li>
 </template>
 
 <script>
-import axios from 'axios'
-
 export default {
     props: {
         calculation: Object
@@ -17,16 +19,6 @@ export default {
             return this.calculation.calculation
                 .replace(/\//g, '÷')
                 .replace(/\*/g, 'x')
-        }
-    },
-    methods: {
-        async deleteCalculation(id) {
-            try {
-                await axios.delete(`api/calculations/${id}`)
-                this.$emit('calculation-deleted')
-            } catch (error) {
-                console.error('Error deleting item:', error)
-            }
         }
     }
 };
