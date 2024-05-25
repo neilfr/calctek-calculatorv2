@@ -15,7 +15,9 @@ export default {
     computed: {
         formattedCalculation() {
             console.log(this.calculation.calculation, this.calculation.calculation.replace(/\//g, '÷'))
-            return this.calculation.calculation.replace(/\//g, '÷')
+            return this.calculation.calculation
+                .replace(/\//g, '÷')
+                .replace(/\*/g, 'x')
         }
     },
     methods: {
