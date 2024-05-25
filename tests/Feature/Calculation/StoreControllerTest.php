@@ -48,6 +48,8 @@ class StoreControllerTest extends TestCase
     public function validCalculations():array
     {
         return [
+            'addition with leading negative number' => ['-5+2', '-3'],
+            'addition with leading unnecessary positive operator' => ['+5+2', '7'],
             'addition' => ['5+2', '7'],
             'subtraction' => ['5-2', '3'],
             'multiplication' => ['8*4', '32'],
