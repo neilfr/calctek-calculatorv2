@@ -22,8 +22,7 @@ class CalculatorService implements CalculatorServiceContract
     {
         $cleanCalculation = $this->clean($calculation);
         $operator = $this->getOperator($cleanCalculation);
-
-        list($operand1, $operand2) = explode($operator, $cleanCalculation);
+        list($operand1, $operand2) = $this->getOperands($operator, $cleanCalculation);
         switch ($operator) {
             case self::ADD:
                 return strval($operand1 + $operand2);
@@ -45,10 +44,25 @@ class CalculatorService implements CalculatorServiceContract
     {
         $operators = [self::ADD,self::SUBTRACT, self::MULTIPLY, self::DIVIDE, self::POWER];
         foreach ($operators as $op) {
-            if (strpos($calculation, $op) !== false) {
+            $operatorPosition = strrpos($calculation, $op);
+            if ($operatorPosition !== false && $operatorPosition != 0) {
                 return $op;
             }
         }
         throw new InvalidArgumentException("Invalid operator");
+    }
+
+    public function getOperands(string $operator, string $cleanCalculation): array
+    {
+        if ($cleanCalculation[0] == self::SUBTRACT) {
+            $operands = explode($operator, substr($cleanCalculation, 1));
+            $operands[0] = self::SUBTRACT . $operands[0];
+        } elseif ($cleanCalculation[0] == self::ADD) {
+            $operands = explode($operator, substr($cleanCalculation, 1));
+        } else {
+            $operands = explode($operator, $cleanCalculation);
+        }
+
+        return $operands;
     }
 }

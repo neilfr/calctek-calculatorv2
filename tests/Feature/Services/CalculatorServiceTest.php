@@ -60,6 +60,12 @@ class CalculatorServiceTest extends TestCase
     public function validCalculations():array
     {
         return [
+            'addition with negative first operand' => ['-2+3',1],
+            'subtraction with negative first operand' => ['-2.3-3',-5.3],
+            'multiplication with negative first operand' => ['-2*3',-6],
+            'division with negative first operand' => ['-2/4',-0.5],
+            'power with negative first operand' => ['-2^3',-8],
+            'addition with unnecessary positive operator' => ['+2+3',5],
             'addition' => ['5+2', '7'],
             'subtraction' => ['5-2', '3'],
             'multiplication' => ['8*4', '32'],
