@@ -14,10 +14,17 @@ class StoreController extends Controller
     public function __invoke(StoreRequest $request, CalculatorService $calculatorService):JsonResponse
     {
         $calculation = new Calculation();
-        $calculation->calculation = $calculatorService->clean($request->input('calculation'));
+        $calculation->calculation = $this->clean($request->input('calculation'));
         $calculation->result = $calculatorService->calculate($calculation->calculation);
         $calculation->save();
 
         return (new CalculationResource($calculation))->response();
     }
+
+    public function clean(string $calculation):string
+    {
+        return str_replace(" ","",$calculation);
+    }
+
+
 }

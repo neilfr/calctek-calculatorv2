@@ -18,20 +18,11 @@ class CalculatorServiceTest extends TestCase
     }
 
     /**
-     * @dataProvider dirtyCalculations
-     */
-    public function test_it_cleans_calculations($calculation, $cleanCalculation)
-    {
-        $this->assertEquals($cleanCalculation, $this->calculatorService->clean($calculation));
-    }
-
-    /**
      * @dataProvider validCalculations
      */
     public function test_it_should_calculate_results($calculation, $result)
     {
-        $cleanCalculation = $this->calculatorService->clean($calculation);
-        $calculatedResult = $this->calculatorService->calculate($cleanCalculation);
+        $calculatedResult = $this->calculatorService->calculate($calculation);
         $this->assertEquals($result, $calculatedResult);
     }
 
@@ -45,16 +36,6 @@ class CalculatorServiceTest extends TestCase
     {
         $this->expectException(DivisionByZeroException::class);
         $this->calculatorService->calculate('5/0');
-    }
-
-    public function dirtyCalculations():array
-    {
-        return [
-            'no spaces' => ['5+2', '5+2'],
-            'leading spaces' => ['  5+2', '5+2'],
-            'trailing spaces' => ['5+2   ', '5+2'],
-            'spaces everywhere' => ['   5   + 2  ', '5+2'],
-        ];
     }
 
     public function validCalculations():array

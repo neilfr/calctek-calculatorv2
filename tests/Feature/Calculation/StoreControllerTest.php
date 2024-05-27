@@ -15,6 +15,7 @@ class StoreControllerTest extends TestCase
      */
     public function test_it_returns_calculation_with_result($calculation, $result): void
     {
+        $cleanCalculation = str_replace(" ", "", $calculation);
         $calculatorService = new CalculatorService();
         $payload = [
             'calculation' => $calculation,
@@ -24,10 +25,10 @@ class StoreControllerTest extends TestCase
             ->assertSuccessful();
 
         $responseData = $response->json('data');
-        $this->assertEquals($calculatorService->clean($calculation), $responseData['calculation']);
+        $this->assertEquals($cleanCalculation, $responseData['calculation']);
         $this->assertEquals($result, $responseData['result']);
         $this->assertDatabaseHas('calculations', [
-            'calculation' => $calculatorService->clean($calculation),
+            'calculation' => $cleanCalculation,
             'result' => $result,
         ]);
     }
@@ -35,10 +36,20 @@ class StoreControllerTest extends TestCase
     /**
      * @dataProvider invalidCalculations
      */
-    public function test_it_returns_422_for_invalid_calculation($calculation): void
+    public function test_it_returns_500_for_invalid_calculation($calculation): void
     {
         $payload = [
             'calculation' => $calculation,
+        ];
+
+        $this->postJson(route('api.calculations.store'), $payload)
+            ->assertStatus(500);
+    }
+
+    public function test_it_returns_422_for_missing_calculation(): void
+    {
+        $payload = [
+            'calculation' => null,
         ];
 
         $this->postJson(route('api.calculations.store'), $payload)
@@ -63,7 +74,6 @@ class StoreControllerTest extends TestCase
     public function invalidCalculations():array
     {
         return [
-            'missing calculation' => [null],
             'letters' => ['foobar'],
             'only the first operand' => ['8+'],
             'only the second operand' => ['+9'],

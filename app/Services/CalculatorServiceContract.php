@@ -4,6 +4,5 @@ namespace App\Services;
 
 interface CalculatorServiceContract
 {
-    public function calculate(string $calculation);
-    
+    public function calculate(string $calculation): string;
 }
