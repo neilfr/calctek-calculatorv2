@@ -6,18 +6,17 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Requests\Calculations\StoreRequest;
 use App\Http\Resources\CalculationResource;
 use App\Models\Calculation;
-use App\Services\CalculatorService;
+use App\Services\CalculatorServiceContract;
 use Illuminate\Http\JsonResponse;
 
 class StoreController extends Controller
 {
-    public function __invoke(StoreRequest $request, CalculatorService $calculatorService):JsonResponse
+    public function __invoke(StoreRequest $request, CalculatorServiceContract $calculatorService):JsonResponse
     {
         $calculation = new Calculation();
         $calculation->calculation = $this->clean($request->input('calculation'));
         $calculation->result = $calculatorService->calculate($calculation->calculation);
         $calculation->save();
-
         return (new CalculationResource($calculation))->response();
     }
 
