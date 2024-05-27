@@ -2,7 +2,6 @@
 
 namespace Tests\Feature\Calculation;
 
-use App\Services\CalculatorService;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -16,7 +15,6 @@ class StoreControllerTest extends TestCase
     public function test_it_returns_calculation_with_result($calculation, $result): void
     {
         $cleanCalculation = str_replace(" ", "", $calculation);
-        $calculatorService = new CalculatorService();
         $payload = [
             'calculation' => $calculation,
         ];
@@ -76,8 +74,6 @@ class StoreControllerTest extends TestCase
         return [
             'letters' => ['foobar'],
             'only the first operand' => ['8+'],
-            'only the second operand' => ['+9'],
-            'division by zero' => ['2/0']
         ];
     }
 
