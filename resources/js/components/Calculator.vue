@@ -9,9 +9,13 @@
                 readonly
             >
             <button class="border bg-red-300 rounded" @click="clear">AC</button>
-            <div></div>
-            <div></div>
+            <calculator-button value="(" @calculator-button-press="append"></calculator-button>
+            <calculator-button value=")" @calculator-button-press="append"></calculator-button>
             <calculator-button value="^" @calculator-button-press="append"></calculator-button>
+            <calculator-button value="sin(" @calculator-button-press="append"></calculator-button>
+            <calculator-button value="cos(" @calculator-button-press="append"></calculator-button>
+            <calculator-button value="tan(" @calculator-button-press="append"></calculator-button>
+            <calculator-button value="sqrt(" @calculator-button-press="append"></calculator-button>
             <calculator-button value="7" @calculator-button-press="append"></calculator-button>
             <calculator-button value="8" @calculator-button-press="append"></calculator-button>
             <calculator-button value="9" @calculator-button-press="append"></calculator-button>
@@ -44,6 +48,7 @@
 
 <script>
 
+// TODO: conditionally render buttons based on backend service
 import axios from 'axios'
 import CalculatorButton from "./CalculatorButton.vue"
 import Ticker from "./Ticker.vue";
