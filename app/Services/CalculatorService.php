@@ -13,12 +13,11 @@ class CalculatorService implements CalculatorServiceContract
     const DIVIDE = '/';
     const POWER = '^';
 
-
-
     public function calculate(string $calculation):string
     {
         $operator = $this->getOperator($calculation);
         list($operand1, $operand2) = $this->getOperands($operator, $calculation);
+
         switch ($operator) {
             case self::ADD:
                 return strval($operand1 + $operand2);
