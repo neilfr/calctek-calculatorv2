@@ -6,6 +6,7 @@ use App\Services\CalculatorServiceContract;
 use App\Services\MyCalculatorService\Operators\Add;
 use App\Services\MyCalculatorService\Operators\Divide;
 use App\Services\MyCalculatorService\Operators\Multiply;
+use App\Services\MyCalculatorService\Operators\Power;
 use App\Services\MyCalculatorService\Operators\Subtract;
 use InvalidArgumentException;
 
@@ -20,6 +21,7 @@ class MyCalculatorService implements CalculatorServiceContract
             new Subtract(),
             new Multiply(),
             new Divide(),
+            new Power()
         ];
 
         $operator = $this->getOperator($calculation);
