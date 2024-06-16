@@ -8,11 +8,13 @@ use App\Http\Resources\CalculationResource;
 use App\Models\Calculation;
 use App\Services\CalculatorServiceContract;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Log;
 
 class StoreController extends Controller
 {
     public function __invoke(StoreRequest $request, CalculatorServiceContract $calculatorService):JsonResponse
     {
+        Log::info('hello');
         $calculation = new Calculation();
         $calculation->calculation = $this->clean($request->input('calculation'));
         $calculation->result = $calculatorService->calculate($calculation->calculation);

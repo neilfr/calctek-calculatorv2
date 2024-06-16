@@ -2,9 +2,9 @@
 
 namespace App\Providers;
 
-use App\Services\CalculatorService;
 use App\Services\CalculatorServiceContract;
 use App\Services\FormulaParserService;
+use App\Services\MyCalculatorService\MyCalculatorService;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -16,8 +16,8 @@ class AppServiceProvider extends ServiceProvider
             switch($serviceType) {
                 case 'FORMULA_PARSER':
                     return new FormulaParserService();
-                case 'CALCULATOR_SERVICE':
-                    return new CalculatorService();
+                case 'MY_CALCULATOR_SERVICE':
+                    return new MyCalculatorService();
                 default:
                     throw new \Exception("Calculator service type '$serviceType' not found");
             }

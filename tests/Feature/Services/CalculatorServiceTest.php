@@ -2,7 +2,7 @@
 
 namespace Tests\Feature\Services;
 
-use App\Services\CalculatorService;
+use App\Services\MyCalculatorService\MyCalculatorService;
 use InvalidArgumentException;
 use Tests\TestCase;
 
@@ -13,7 +13,7 @@ class CalculatorServiceTest extends TestCase
     public function setUp(): void
     {
         parent::setUp();
-        $this->calculatorService = new CalculatorService();
+        $this->calculatorService = new MyCalculatorService();
     }
 
     /**
